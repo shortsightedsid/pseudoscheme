@@ -259,7 +259,7 @@
   (declare (special ps:scheme-report-environment))
   (case n
     ((4 5) ps:scheme-report-environment)
-    (otherwise (error "invalid scheme report" n))))
+    (otherwise (error "invalid scheme report ~S" n))))
 
 (defune syntax-error (message &rest irritants)
   (apply #'ps:scheme-warn message irritants))

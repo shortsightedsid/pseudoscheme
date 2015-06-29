@@ -40,43 +40,43 @@
       (funcall original-top-level-read stream eof-error-p eof-value)))
 
 
-; Lucid can't be helped
-#|
- (loop (if (listen stream)
-	   (let ((c (peek-char nil stream eof-error-p)))
-	     (if (eq c #\newline)
-		 (return (read-char stream eof-error-p))))))
+;; ; Lucid can't be helped
+;; #|
+;;  (loop (if (listen stream)
+;; 	   (let ((c (peek-char nil stream eof-error-p)))
+;; 	     (if (eq c #\newline)
+;; 		 (return (read-char stream eof-error-p))))))
 
-      (and (not (eq *readtable* scheme-readtable))
-	   (not (eq *readtable* roadblock-readtable))
-	   (not (eq *readtable* *non-scheme-readtable*)))
-      (progn (setq *readtable* roadblock-readtable)   ;Invoke Scheme reader
-	     (let ((form (apply original-top-level-read args)))
-	       (format *debug-io*
-		       "~&(Fixing Lucid lossage: *readtable* restored to ~s~%"
-		       'roadblock-readtable)
+;;       (and (not (eq *readtable* scheme-readtable))
+;; 	   (not (eq *readtable* roadblock-readtable))
+;; 	   (not (eq *readtable* *non-scheme-readtable*)))
+;;       (progn (setq *readtable* roadblock-readtable)   ;Invoke Scheme reader
+;; 	     (let ((form (apply original-top-level-read args)))
+;; 	       (format *debug-io*
+;; 		       "~&(Fixing Lucid lossage: *readtable* restored to ~s~%"
+;; 		       'roadblock-readtable)
 
-      ))
-|#
+;;       ))
+;; |#
 
-(defvar *original-top-level-read*
-  #'lucid::top-level-read)
+;; (defvar *original-top-level-read*
+;;   #'lucid::top-level-read)
 
-(defun lucid::top-level-read (&optional (stream *standard-input*)
-					(eof-error-p t)
-					(eof-value stream))
-  ;; Should avoid preserving whitespace ?
-  (kludge-top-level-read *original-top-level-read*
-			 nil
-			 stream eof-error-p eof-value))
+;; (defun lucid::top-level-read (&optional (stream *standard-input*)
+;; 					(eof-error-p t)
+;; 					(eof-value stream))
+;;   ;; Should avoid preserving whitespace ?
+;;   (kludge-top-level-read *original-top-level-read*
+;; 			 nil
+;; 			 stream eof-error-p eof-value))
 
-(defvar *original-debugger-top-level-read*
-  #'lucid::debugger-top-level-read)
+;; (defvar *original-debugger-top-level-read*
+;;   #'lucid::debugger-top-level-read)
 
-(defun lucid::debugger-top-level-read (&optional (stream *debug-io*)
-						 (eof-error-p t)
-						 (eof-value stream))
-  ;; Should read-preserving-whitespace ?
-  (kludge-top-level-read *original-debugger-top-level-read*
-			 t
-			 stream eof-error-p eof-value))
+;; (defun lucid::debugger-top-level-read (&optional (stream *debug-io*)
+;; 						 (eof-error-p t)
+;; 						 (eof-value stream))
+;;   ;; Should read-preserving-whitespace ?
+;;   (kludge-top-level-read *original-debugger-top-level-read*
+;; 			 t
+;; 			 stream eof-error-p eof-value))

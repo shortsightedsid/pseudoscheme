@@ -1,9 +1,10 @@
 
-(in-package "USER")
 
-(load "/zu/jar/pseudo/loadit.lisp")
+(in-package "CL-USER")
 
-(load-pseudoscheme "/zu/jar/pseudo/")
+;; (load #P"./loadit.lisp")
+
+(load-pseudoscheme "~/lisp/pseudoscheme.git/")
 
 (format t
 	"~2&Do (ps:scheme) to enter Scheme, after which:~
